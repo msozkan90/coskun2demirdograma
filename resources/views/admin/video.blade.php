@@ -45,7 +45,9 @@
                             <tbody>
                             @foreach ($videos as $video)
                                 <tr id="">
-                                    <td></td>
+                                    <td>
+                                        <iframe width="110%"  height="auto" src="{{asset($video['video'])}}" title="YouTube video player" frameborder="0" allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen sandbox></iframe>
+                                    </td>
                                     <td><a href="{{ route('video_edit', ['id' => $video->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>

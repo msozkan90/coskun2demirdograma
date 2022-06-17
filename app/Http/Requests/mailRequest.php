@@ -39,7 +39,7 @@ class mailRequest extends FormRequest
             'surname.required' => 'Lütfen soyisim bölümünü girin.',
             'surname.max' => 'Soyisim bölümü 40 karakterden fazla olamaz',
             'email.required' => 'Lütfen email bölümünü girin.',
-            'message.required' => 'Lütfen message bölümünü girin.',
+            'message.required' => 'Lütfen mesaj bölümünü girin.',
             'message.max' => 'Mesaj bölümü 400 karakterden fazla olamaz',
 
 

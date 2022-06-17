@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 
 @section('style')
+    <style>
 
+
+
+
+
+    </style>
 @endsection
 @section('body')
 
@@ -33,8 +39,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>id</th>
                                 <th>Düzenle</th>
                                 <th>Sil</th>
+                                <th>Projenin Adı</th>
                                 <th>Projenin Adı</th>
                                 <th>Resim</th>
                                 <th>Durum</th>
@@ -45,7 +53,12 @@
                             <tbody>
                             @foreach ($images as $image)
                                 <tr id="">
-                                    <td></td>
+                                    <td>
+                                        <a href="#"> <img src=" {{asset($image['image']) }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_pic" class="showPicture" id="showPicture" data-image="{{asset($image['image']) }}"  alt="Coskun-2-demir-dograma"> </a>
+                                    </td>
+                                    <td>
+                                        {{ $image['id']}}
+                                    </td>
                                     <td><a href="{{ route('image_edit', ['id' => $image->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>
@@ -53,6 +66,7 @@
                                            class="btn btn-danger  showButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sil <i class="fa fa-trash"></i></a>
                                     </td>
                                     <td>{{\App\Models\Project::find($image['project_id'])['title']}}</td>
+                                    <td>{{\App\Models\Project::find($image['project_id'])['id']}}</td>
                                     <td>{{Str::limit($image['image'] , 50, $end='...')}}</td>
 
                                     <td>
@@ -82,6 +96,7 @@
 
 
 
+
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -103,7 +118,7 @@
                         <select id="project_id" class="form-control" name="project_id" >
                             <option value="">---</option>
                             @foreach ($projects as $project)
-                            <option value="{{$project['id']}}">{{$project['title']}}</option>
+                            <option value="{{$project['id']}}">{{$project['title']}}   </option>
 
                             @endforeach
                         </select>
@@ -178,5 +193,20 @@
 
 
 
+    </script>
+    <script>
+        let showPicture_smallpic = document.getElementById('showPicture')
+        let modalBody_smallpic = document.getElementsByClassName('modal-body')
+        let modalImage_smallpic = document.getElementsByClassName('modal-image')
+        $('.showPicture').click(function (){
+            modalImage_smallpic[0].src= $(this).attr('data-image') ;
+            console.log($(this).attr('data-image'))
+        });
+        $('.modal').on('shown.bs.modal', function (e) {
+            myInput.focus()
+        });
+        $('.modal').on('hidden.bs.modal', function (e) {
+
+        });
     </script>
 @endsection

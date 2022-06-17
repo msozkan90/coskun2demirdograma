@@ -32,7 +32,8 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th>id</th>
+                                <th>Kapak</th>
                                 <th>Düzenle</th>
                                 <th>Sil</th>
                                 <th>Projenin Adı</th>
@@ -48,7 +49,10 @@
                             <tbody>
                             @foreach ($projects as $project)
                                 <tr id="">
-                                    <td></td>
+                                    <td>{{ $project['id'] }}</td>
+                                    <td>
+                                        <a href="#"> <img src=" {{asset($project['image']) }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_pic" class="showPicture" id="showPicture" data-image="{{asset($project['image']) }}"  alt="Coskun-2-demir-dograma"> </a>
+                                    </td>
                                     <td><a href="{{ route('project_edit', ['id' => $project->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>
@@ -131,7 +135,7 @@
 
                     <div class="form-group">
                         <label for="description">Proje Hakkında</label>
-                        <textarea class="form-control" name="description" id="body" cols="50"
+                        <textarea class="form-control ckeditor123" name="description" id="ckeditor123" cols="50"
                                   rows="15"
                                   placeholder="Description"> {{$project_data[0]['description']}} </textarea>
                     </div>

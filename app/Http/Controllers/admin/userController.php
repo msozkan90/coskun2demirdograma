@@ -1,32 +1,26 @@
 <?php
-
 namespace App\Http\Controllers\admin;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\userRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
 class userController extends Controller
 {
    public function user(){
        $users=User::paginate(5);
        return view('admin.user',compact('users'));
    }
-
     public function user_add(userRequest $request){
         $user = $request->except('_token');
         $email_check = User::where('email','=',$user['email'])->count();
-
         if ($user['password'] !== $user['password_confirmation']){
             return redirect()->back()->with('status-danger', 'Parolalar eşleşmiyor!');
         }
         if ($email_check !== 0){
             return redirect()->back()->with('status-danger', 'Bu email zaten kullanılıyor!');
         }
-
         else{
             $user['password'] = bcrypt($user['password']);
             $insert = User::create($user);
@@ -39,7 +33,6 @@ class userController extends Controller
         }
 
     }
-
     public function user_edit(Request $request,$id){
         $users=User::paginate(5);
         $c = User::where('id', '=', $id)->count();
@@ -51,8 +44,6 @@ class userController extends Controller
         }
 
     }
-
-
     public function user_update(userRequest $request){
         $id = $request->route('id');
         $old_user_info= User::where('id','=',$id)->get();
@@ -62,7 +53,6 @@ class userController extends Controller
         if ($user['password'] !== $user['password_confirmation']){
             return redirect()->back()->with('status-danger', 'Parolalar eşleşmiyor!');
         }
-
         $user = $request->except('_token','password_confirmation');
         $user['password'] = bcrypt($user['password']);
         $old_user_info['name'] = $user['name'];
@@ -89,8 +79,6 @@ class userController extends Controller
             return redirect()->back()->with('status-danger', 'Böyle bir kullanıcı bulunmamaktadır.');
         }
     }
-
-
     public function user_delete(Request $request,$id){
         $c = User::where('id', '=', $id)->count();
         if ($c != 0) {
@@ -102,8 +90,6 @@ class userController extends Controller
         }
         else {
             return redirect()->back()->with('status-danger', 'Bir sorun oluştu!');
-
         }
-
     }
 }

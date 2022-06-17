@@ -32,7 +32,8 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th>id</th>
+                                <th>Kapak</th>
                                 <th>Düzenle</th>
                                 <th>Sil</th>
                                 <th>Projenin Adı</th>
@@ -48,7 +49,11 @@
                             <tbody>
                             @foreach ($projects as $project)
                                 <tr id="">
-                                    <td></td>
+                                    <td>{{ $project['id'] }}</td>
+
+                                    <td>
+                                        <a href="#"> <img src=" {{asset($project['image']) }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_pic" class="showPicture" id="showPicture" data-image="{{asset($project['image']) }}"  alt="Coskun-2-demir-dograma"> </a>
+                                    </td>
                                     <td><a href="{{ route('project_edit', ['id' => $project->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>
@@ -124,7 +129,7 @@
 
                     <div class="form-group">
                         <label for="description">Proje Hakkında</label>
-                        <textarea class="form-control" name="description" id="body" cols="30"
+                        <textarea class="form-control ckeditor123 " name="description" id="ckeditor123" cols="30"
                                   rows="10"
                                   placeholder="Description"> {{old('description')}}</textarea>
 
@@ -145,6 +150,7 @@
 
 @endsection
 @section('js')
+
     <script>
         $.ajaxSetup({
             headers: {

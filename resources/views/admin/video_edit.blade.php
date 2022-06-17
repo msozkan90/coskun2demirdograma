@@ -45,7 +45,10 @@
                             <tbody>
                             @foreach ($videos as $video)
                                 <tr id="">
-                                    <td></td>
+
+                                    <td>
+                                        <iframe width="110%"  height="auto" src="{{asset($video['video'])}}" title="YouTube video player" frameborder="0" allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen sandbox></iframe>
+                                    </td>
                                     <td><a href="{{ route('video_edit', ['id' => $video->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>
@@ -87,7 +90,7 @@
             <div class="card-body">
                 <h4 class="card-title">Video Düzenle</h4>
 
-                <form class="forms-sample" enctype="multipart/form-data" action="{{route('video_update',['id' => $video['id']])}}" method="POST">
+                <form class="forms-sample" enctype="multipart/form-data" action="{{route('video_update',['id' =>   $video_data[0]['id']])}}" method="POST">
                     @csrf
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -101,14 +104,14 @@
                     <div class="form-group">
                         <label for="project_id">Proje Adı</label>
                         <select id="project_id" class="form-control" name="project_id" >
-                            <option value="{{$video['project_id']}}">{{$project_title}}</option>
+                            <option value="{{\App\Models\Project::find($video_data[0]->project_id)['id']}}">{{\App\Models\Project::find($video_data[0]->project_id)['title']}} </option>
 
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="video">Projenin resmi</label>
-                        <input type="file" class="form-control" value="{{$video['video']}}"  name="video" id="video" placeholder="Projenin resmi ">
+                        <input type="file" class="form-control" value="{{$video_data[0]['video']}}"  name="video" id="video" placeholder="Projenin resmi ">
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Düzenle</button>

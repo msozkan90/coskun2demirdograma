@@ -14,7 +14,8 @@
                             <div class="col-lg-8">
                                 <ul class="nacc">
                                     @foreach($videos as  $video)
-
+                                        @if($video['status'] == 0)
+                                        @else
                                         <li class="">
                                             <div>
                                                 <div class="thumb">
@@ -26,6 +27,7 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        @endif
                                     @endforeach
 
                                 </ul>

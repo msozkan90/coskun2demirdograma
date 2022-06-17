@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VideoDto;
 use App\Models\Images;
 use App\Models\Project;
 use App\Models\Video;
@@ -13,15 +14,10 @@ class IndexController extends Controller
     function index(){
 
         $projects=Project::all();
-        $videos=Video::all();
-        $images=Images::all();
-        return view("index",compact('projects','videos','images'));
+//        $videos = VideoDto::collection(Video::all('status','video'));
+        $videos=Video::all('status','video');
+//        $images=Images::all();
+        return view("index",compact('projects','videos'));
     }
 
-    function changeLang($langcode){
-
-        App::setLocale($langcode);
-        session()->put("lang_code",$langcode);
-        return redirect()->back();
-    }
 }

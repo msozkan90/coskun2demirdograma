@@ -15,7 +15,12 @@
     <link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/owl-carousel-2/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/owl-carousel-2/owl.theme.default.min.css')}}">
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/ckeditor/samples/css/samples.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('assets/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}">
+{{--    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>--}}
+
+{{--    <link rel="stylesheet" href="{{asset('assets/vendors/css/vendor.bundle.base.css')}}">--}}
 
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -61,6 +66,20 @@
             margin-left: 10px;
         }
 
+        .pop_image{
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px!important;
+            height: 400px!important;
+        }
+
+        @media only screen and (max-width:991px) {
+            .pop_image{
+                width: 400px!important;
+                height: 220px!important;
+            }
+        }
+
 
 
     </style>
@@ -101,7 +120,6 @@
                     <span class="menu-title">Kontrol Paneli</span>
                 </a>
             </li>
-
             <li class="nav-item menu-items">
                 <a class="nav-link {{ Route::is('project') ? 'active' : '' }}" href="{{route('project')}}">
               <span class="menu-icon">
@@ -110,13 +128,12 @@
                     <span class="menu-title">Projeler</span>
                 </a>
             </li>
-
             <li class="nav-item menu-items">
-                <a class="nav-link {{ Route::is('image') ? 'active' : '' }}" href="{{route('image')}}">
+                <a class="nav-link {{ Route::is('video') ? 'active' : '' }}" href="{{route('user')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-                    <span class="menu-title">Resimler</span>
+                    <span class="menu-title">Kullanıcılar</span>
                 </a>
             </li>
             <li class="nav-item menu-items">
@@ -128,13 +145,14 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link {{ Route::is('video') ? 'active' : '' }}" href="{{route('user')}}">
+                <a class="nav-link {{ Route::is('image') ? 'active' : '' }}" href="{{route('image')}}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-                    <span class="menu-title">Kullanıcılar</span>
+                    <span class="menu-title">Resimler</span>
                 </a>
             </li>
+
         </ul>
     </nav>
     <!-- partial -->
@@ -236,6 +254,8 @@
     <!-- page-body-wrapper ends -->
 
 </div>
+
+{{--MODAL-1--}}
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered  modal-sm">
         <div class="modal-content">
@@ -263,6 +283,24 @@
         </div>
     </div>
 </div>
+{{--MODAL-2--}}
+<div class="modal fade" id="staticBackdrop_pic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close btn-close-white"  data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-dialog-centered">
+                <div class="pop_image mb-3">
+                    <img class="modal-image pop_image" src="" id="staticBackdropLabel">
+                </div>
+                <p class="modal-description mt-5" id="staticBackdropLabel">
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -286,16 +324,82 @@
 {{--<script src="{{asset('assets/js/todolist.js')}}"></script>--}}
 <!-- endinject -->
 <!-- Custom js for this page -->
+
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+<script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+
 
 <!-- End custom js for this page -->
+{{--<script type="text/javascript">--}}
+
+{{--    // var editor = CKEDITOR.replace( 'ckeditor123',{--}}
+{{--    //       extraAllowedContent : 'div',--}}
+{{--    //  });--}}
+{{--    // CKEDITOR.config.extraPlugins = 'sourcedialog';--}}
+{{--    //  CKEDITOR.config.source= false;--}}
+{{--    // CKEDITOR.config.removePlugins = 'sourcearea';--}}
+{{--    // CKEDITOR.config.allowedContent = 'true';--}}
+
+{{--    // CKEDITOR.config.allowedContent = true;--}}
+
+{{--    // CKEDITOR.replace("ckeditor123"), {--}}
+{{--    //--}}
+{{--    //     disableNativeSpellChecker : false,--}}
+{{--    //     allowedContent : true,--}}
+{{--    // }--}}
+{{--    // CKEDITOR.replace("ckeditor"), {--}}
+{{--    //     // customConfig: 'public/assests/CKconfig.js',--}}
+{{--    //--}}
+{{--    //--}}
+{{--    // }--}}
+{{--    //--}}
+{{--    // $(document).ready(function () {--}}
+{{--    //     $('.ckeditor').ckeditor();--}}
+{{--    //     config.allowedContent = true;--}}
+{{--    //--}}
+{{--    // });--}}
+{{--    // CKEDITOR.editorConfig = function( config )--}}
+{{--    // {--}}
+{{--    //     config.extraPlugins = 'first-page-header,first-page-footer,page-header,page-footer,hard-page-break';--}}
+{{--    //     config.allowedContent = true;--}}
+{{--    // };--}}
+
+{{--    // ClassicEditor--}}
+{{--    //     .create( document.querySelector( '#body' ))--}}
+{{--    //     .catch( error => {--}}
+{{--    //         console.error( error );--}}
+{{--    //     } );--}}
+
+    {{--</script>--}}
+
+{{--   // var editor = CKEDITOR.replace( 'ckeditor123', {--}}
+{{--   //      allowedContent: true,--}}
+{{--   //      // plugins: 'wysiwygarea,toolbar,format',--}}
+{{--   //      extraAllowedContent: '',--}}
+{{--   //--}}
+{{--   //  } );--}}
+   <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+<script src=" {{ asset('assets/ckeditor/samples/js/sample.js') }}"></script>
 <script>
-    ClassicEditor
-        .create( document.querySelector( '#body' ) )
-        .catch( error => {
-            console.error( error );
-        } );
+    var editor1 = CKEDITOR.replace('ckeditor123', {
+        extraAllowedContent: 'div',
+        height: 150
+    });
+
+    var editorLang = CKEDITOR.replace('editorLang', {
+        extraAllowedContent: 'div',
+        height: 150
+    });
+
+    var editorInterests = CKEDITOR.replace('editorInterests', {
+        extraAllowedContent: 'div',
+        height: 150
+    });
+
 </script>
+
+
+
 
 <script>
     let delete_but = $('.delete-but')
@@ -305,6 +409,22 @@
         $('.delete-but').click(function (){
         });
     })
+</script>
+
+<script>
+    let showPicture_smallpic = document.getElementById('showPicture')
+    let modalBody_smallpic = document.getElementsByClassName('modal-body')
+    let modalImage_smallpic = document.getElementsByClassName('modal-image')
+    $('.showPicture').click(function (){
+        modalImage_smallpic[0].src= $(this).attr('data-image') ;
+        console.log($(this).attr('data-image'))
+    });
+    $('.modal').on('shown.bs.modal', function (e) {
+        myInput.focus()
+    });
+    $('.modal').on('hidden.bs.modal', function (e) {
+
+    });
 </script>
 @yield('js')
 </body>

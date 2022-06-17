@@ -228,12 +228,15 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
 
                 <div class="owl-carousel owl-portfolio" >
                     @foreach($projects as $project)
+                        @if($project['status'] == 0)
+                        @else
                         <div class="item" >
                             <div class="thumb" >
                                 <img src=" {{$project['image']}}" style="object-fit: cover!important;width: 363px;height: 525px;" alt="Coskun-2-demir-dograma">
@@ -254,8 +257,9 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endif
                     @endforeach
+
                 </div>
             </div>
         </div>

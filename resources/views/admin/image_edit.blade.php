@@ -33,8 +33,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>id</th>
                                 <th>Düzenle</th>
                                 <th>Sil</th>
+                                <th>Projenin Adı</th>
                                 <th>Projenin Adı</th>
                                 <th>Resim</th>
                                 <th>Durum</th>
@@ -45,7 +47,12 @@
                             <tbody>
                             @foreach ($images as $image)
                                 <tr id="">
-                                    <td></td>
+                                    <td>
+                                        <a href="#"> <img src=" {{asset($image['image']) }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_pic" class="showPicture" id="showPicture" data-image="{{asset($image['image']) }}"  alt="Coskun-2-demir-dograma"> </a>
+                                    </td>
+                                    <td>
+                                        {{ $image['id']}}
+                                    </td>
                                     <td><a href="{{ route('image_edit', ['id' => $image->id]) }}"
                                            class="btn btn-warning editEducation">Düzenle <i class="fa fa-edit"></i></a>
                                     </td>
@@ -53,6 +60,7 @@
                                            class="btn btn-danger showButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sil <i class="fa fa-trash"></i></a>
                                     </td>
                                     <td>{{\App\Models\Project::find($image['project_id'])['title']}}</td>
+                                    <td>{{\App\Models\Project::find($image['project_id'])['id']}}</td>
                                     <td>{{Str::limit($image['image'] , 50, $end='...')}}</td>
                                     <td>
                                         @if ($image->status == 1)
@@ -88,7 +96,7 @@
             <div class="card-body">
                 <h4 class="card-title">Resim Düzenle</h4>
 
-                <form class="forms-sample" enctype="multipart/form-data" action="{{route('image_update',['id' => $image['id']])}}" method="POST">
+                <form class="forms-sample" enctype="multipart/form-data" action="{{route('image_update',['id' => $image_data[0]['id']])}}" method="POST">
                     @csrf
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -102,14 +110,14 @@
                     <div class="form-group">
                         <label for="project_id">Proje Adı</label>
                         <select id="project_id" class="form-control" name="project_id" >
-                            <option value="{{$image['project_id']}}">{{$project_title}}</option>
-
+                            <option value="{{\App\Models\Project::find($image_data[0]->project_id)['id']}}">{{\App\Models\Project::find($image_data[0]->project_id)['title']}}</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
                         <label for="image">Projenin resmi</label>
-                        <input type="file" class="form-control" value="{{$image['image']}}"  name="image" id="image" placeholder="Projenin resmi ">
+                        <input type="file" class="form-control" value="{{$image_data[0]->image}}"  name="image" id="image" placeholder="Projenin resmi ">
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Düzenle</button>

@@ -25,7 +25,7 @@ class videoUpdateRequest extends FormRequest
     {
         return [
             'project_id' => 'required',
-            'video' => 'mimes:mp4,mov,ogg | max:20000',
+            'video' => 'mimes:mp4,mov,ogg | max:100000',
 
         ];
     }
