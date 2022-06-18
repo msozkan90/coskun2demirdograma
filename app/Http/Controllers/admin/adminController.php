@@ -11,19 +11,17 @@ use Illuminate\Http\Request;
 
 class adminController extends Controller
 {
-    public function index(Request $request){
+    public function Index(Request $request){
         $date = \Carbon\Carbon::now();
         $lastMonth =  $date->subMonth()->format('m');
         $projects_count=Project::all()->count();
         $users_count=User::all()->count();
         $images_count=Images::all()->count();
         $videos_count=Video::all()->count();
-
         $projects_last=Project::latest()->first();
         $users_last=User::latest()->first();
         $images_last=Images::latest()->first();
         $videos_last=Video::latest()->first();
-
         $projects_last_month=Project::where('created_at','>=',$lastMonth)->count();
         $users_last_month=User::where('created_at','>=',$lastMonth)->count();
         $images_last_month=Images::where('created_at','>=',$lastMonth)->count();

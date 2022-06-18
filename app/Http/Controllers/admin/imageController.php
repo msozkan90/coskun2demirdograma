@@ -13,19 +13,19 @@ use File;
 use Image;
 class imageController extends Controller
 {
-    public function image(Request $request){
+    public function Image(Request $request){
         $images=Images::paginate(5);
         $projects=Project::all('id','title');
 
         return view('admin.image',compact('images','projects'));
     }
-    public function image_add(imageRequest $request){
+    public function ImageAdd(imageRequest $request){
         $information = $request->except('_token');
         $project_id= $information['project_id'];
         $project=Project::where('id','=',$project_id)->get('title');
         $project_name=$project[0]['title'];
         $call_service= new ImageService();
-        $insert = $call_service->image_add($request,$project_name,$information);
+        $insert = $call_service->ImageAdd($request,$project_name,$information);
         if ($insert) {
             return redirect()->back()->with('status-success', 'Yeni resim başarılı bir şekilde eklendi');
 
@@ -33,7 +33,7 @@ class imageController extends Controller
             return redirect()->back()->with('status-danger', 'Bir sorun oluştu!');
         }
     }
-    public function image_edit(Request $request,$id){
+    public function ImageEdit(Request $request,$id){
         $projects=Project::all('id','title');
         $images=Images::paginate(5);
         $image_all_data = Images::where('id', '=', $id)->get('project_id');
@@ -48,7 +48,7 @@ class imageController extends Controller
         }
 
     }
-    public function image_update(imageUpdateRequest $request)
+    public function ImageUpdate(imageUpdateRequest $request)
     {
         $id = $request->route('id');
         $image_get = Images::where('id', '=', $id)->get();
@@ -58,7 +58,7 @@ class imageController extends Controller
 
         if ($image_count != 0) {
             $call_service = new ImageService();
-            $update = $call_service->image_update($request, $image_get, $project_name, $id);
+            $update = $call_service->ImageUpdate($request, $image_get, $project_name, $id);
         if ($update) {
             return redirect()->back()->with('status-success', 'Resim başarılı bir şekilde güncellendi');
         }
@@ -71,7 +71,7 @@ class imageController extends Controller
 
     }
     }
-    public function changeStatus(Request $request)
+    public function ChangeStatus(Request $request)
     {
         $id = $request->imageID;
         $newStatus = null;
@@ -95,7 +95,7 @@ class imageController extends Controller
             'status' => $status,
         ], 200));
     }
-    public function image_delete(Request $request,$id){
+    public function ImageDelete(Request $request,$id){
         $image_count = Images::where('id', '=', $id)->count();
         $data = Images::where('id', '=', $id)->get();
         if ($image_count != 0) {

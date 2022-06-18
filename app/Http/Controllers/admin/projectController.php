@@ -15,22 +15,22 @@ use Image;
 
 class projectController extends Controller
 {
-    public function project(Request $request){
+    public function Project(Request $request){
         $projects=Project::paginate(5);
         return view('admin.project',compact('projects'));
     }
-    public function project_add(projectRequest $request){
+    public function ProjectAdd(projectRequest $request){
         $information = $request->except('_token');
 
         $call_service= new ProjectService();
-        $insert = $call_service->project_image_add($request,$information);
+        $insert = $call_service->ProjectImageAdd($request,$information);
         if ($insert) {
             return redirect()->back()->with('status-success', 'Yeni proje başarılı bir şekilde eklendi');
         } else {
             return redirect()->back()->with('status-danger', 'Bir sorun oluştu!');
         }
     }
-    public function project_edit(Request $request,$id){
+    public function ProjectEdit(Request $request,$id){
         $projects=Project::paginate(5);
         $project_count= Project::where('id','=',$id)->count();
         if ($project_count != 0) {
@@ -42,14 +42,14 @@ class projectController extends Controller
             return redirect('admin.project');
         }
     }
-    public function project_update(projectUpdateRequest $request){
+    public function ProjectUpdate(projectUpdateRequest $request){
         $id = $request->route('id');
         $project_count = Project::where('id', '=', $id)->count();
         $image_get = Project::where('id', '=', $id)->get();
 
         if ($project_count != 0) {
             $call_service= new ProjectService();
-            $update= $call_service->project_image_update($request,$image_get,$id);
+            $update= $call_service->ProjectImageUpdate($request,$image_get,$id);
             if ($update) {
                 return redirect()->back()->with('status-success', 'Proje başarılı bir şekilde güncellendi');
             } else {
@@ -59,7 +59,7 @@ class projectController extends Controller
             return redirect('admin.project');
         }
     }
-    public function changeStatus(Request $request)
+    public function ChangeStatus(Request $request)
     {
         $id = $request->projectID;
         $newStatus = null;
@@ -84,7 +84,7 @@ class projectController extends Controller
             'status' => $status,
         ], 200));
     }
-    public function project_delete(Request $request,$id){
+    public function ProjectDelete(Request $request,$id){
         $project_count = Project::where('id', '=', $id)->count();
         $data = Project::where('id', '=', $id)->get();
         $image_delete=Images::where('project_id','=',$id)->get();
@@ -94,7 +94,7 @@ class projectController extends Controller
         $delete=true;
         if ($project_count != 0) {
             $call_service= new ProjectService();
-            $call_service->project_image_delete($data,$image_delete_count,$image_delete,$video_delete_count,$video_delete,$id);
+            $call_service->ProjectImageDelete($data,$image_delete_count,$image_delete,$video_delete_count,$video_delete,$id);
             if($delete){
                 return redirect('admin/proje')->with('status-success', 'Proje başarılı bir şekilde silindi');
             }

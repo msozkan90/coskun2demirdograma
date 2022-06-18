@@ -13,7 +13,7 @@ class mailController extends Controller
             $message->to('coskun2demirdograma@gmail.com', 'Coskun2')->subject('Welcome!');
         });
     }
-    public function mail_post(mailRequest $request){
+    public function MailPost(mailRequest $request){
         $body = $request['message'];
         $details = [
             'name' =>  $request['name'],

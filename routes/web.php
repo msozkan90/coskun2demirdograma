@@ -21,8 +21,8 @@ use App\Http\Livewire\Front\Index;
 */
 
 
-Route::get('/',"App\Http\Controllers\IndexController@index")->name('index');
-Route::post('/','\App\Http\Controllers\mailController@mail_post')->name('mail-post');
+Route::get('/',"App\Http\Controllers\IndexController@Index")->name('index');
+Route::post('/','\App\Http\Controllers\mailController@MailPost')->name('mail-post');
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
     $enableViews = config('fortify.views', true);
@@ -54,38 +54,38 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
 
 Route::group(['namespace'=>'App\Http\Controllers\admin','prefix'=>'admin','middleware'=>['auth', AdminControl::class]],function()
 {
-    Route::post('/proje/change-status', '\App\Http\Controllers\admin\projectController@changeStatus')->name('project_changeStatus');
-    Route::post('/resim/change-status', '\App\Http\Controllers\admin\imageController@changeStatus')->name('image_changeStatus');
-    Route::post('/video/change-status', '\App\Http\Controllers\admin\videoController@changeStatus')->name('video_changeStatus');
-    Route::get('/kontrolpaneli', '\App\Http\Controllers\admin\adminController@index')->name('index');
+    Route::post('/proje/change-status', '\App\Http\Controllers\admin\projectController@ChangeStatus')->name('project_changeStatus');
+    Route::post('/resim/change-status', '\App\Http\Controllers\admin\imageController@ChangeStatus')->name('image_changeStatus');
+    Route::post('/video/change-status', '\App\Http\Controllers\admin\videoController@ChangeStatus')->name('video_changeStatus');
+    Route::get('/kontrolpaneli', '\App\Http\Controllers\admin\adminController@Index')->name('index');
 
 
 
 
-    Route::get('/resim', '\App\Http\Controllers\admin\imageController@image')->name('image');
-    Route::post('/resim', '\App\Http\Controllers\admin\imageController@image_add')->name('image_add');
-    Route::get('/resim/duzenle/{id}', '\App\Http\Controllers\admin\imageController@image_edit')->name('image_edit');
-    Route::post('/resim/duzenle/{id}', '\App\Http\Controllers\admin\imageController@image_update')->name('image_update');
-    Route::get('/resim/sil/{id}/', '\App\Http\Controllers\admin\imageController@image_delete')->name('image_delete');
+    Route::get('/resim', '\App\Http\Controllers\admin\imageController@Image')->name('image');
+    Route::post('/resim', '\App\Http\Controllers\admin\imageController@ImageAdd')->name('image_add');
+    Route::get('/resim/duzenle/{id}', '\App\Http\Controllers\admin\imageController@ImageEdit')->name('image_edit');
+    Route::post('/resim/duzenle/{id}', '\App\Http\Controllers\admin\imageController@ImageUpdate')->name('image_update');
+    Route::get('/resim/sil/{id}/', '\App\Http\Controllers\admin\imageController@ImageDelete')->name('image_delete');
 
 
-    Route::get('/video', '\App\Http\Controllers\admin\videoController@video')->name('video');
-    Route::post('/video', '\App\Http\Controllers\admin\videoController@video_add')->name('video_add');
-    Route::get('/video/duzenle/{id}', '\App\Http\Controllers\admin\videoController@video_edit')->name('video_edit');
-    Route::post('/video/duzenle/{id}', '\App\Http\Controllers\admin\videoController@video_update')->name('video_update');
-    Route::get('/video/sil/{id}/', '\App\Http\Controllers\admin\videoController@video_delete')->name('video_delete');
+    Route::get('/video', '\App\Http\Controllers\admin\videoController@Video')->name('video');
+    Route::post('/video', '\App\Http\Controllers\admin\videoController@VideoAdd')->name('video_add');
+    Route::get('/video/duzenle/{id}', '\App\Http\Controllers\admin\videoController@VideoEdit')->name('video_edit');
+    Route::post('/video/duzenle/{id}', '\App\Http\Controllers\admin\videoController@VideoUpdate')->name('video_update');
+    Route::get('/video/sil/{id}/', '\App\Http\Controllers\admin\videoController@VideoDelete')->name('video_delete');
 
-    Route::get('/proje', '\App\Http\Controllers\admin\projectController@project')->name('project');
-    Route::post('/proje', '\App\Http\Controllers\admin\projectController@project_add')->name('project_add');
-    Route::get('/proje/duzenle/{id}', '\App\Http\Controllers\admin\projectController@project_edit')->name('project_edit');
-    Route::post('/proje/duzenle/{id}/', '\App\Http\Controllers\admin\projectController@project_update')->name('project_update');
-    Route::get('/proje/sil/{id}/', '\App\Http\Controllers\admin\projectController@project_delete')->name('project_delete');
+    Route::get('/proje', '\App\Http\Controllers\admin\projectController@Project')->name('project');
+    Route::post('/proje', '\App\Http\Controllers\admin\projectController@ProjectAdd')->name('project_add');
+    Route::get('/proje/duzenle/{id}', '\App\Http\Controllers\admin\projectController@ProjectEdit')->name('project_edit');
+    Route::post('/proje/duzenle/{id}/', '\App\Http\Controllers\admin\projectController@ProjectUpdate')->name('project_update');
+    Route::get('/proje/sil/{id}/', '\App\Http\Controllers\admin\projectController@ProjectDelete')->name('project_delete');
 
-    Route::get('/kullanici', '\App\Http\Controllers\admin\userController@user')->name('user');
-    Route::post('/kullanici', '\App\Http\Controllers\admin\userController@user_add')->name('user_add');
-    Route::get('/kullanici/duzenle/{id}', '\App\Http\Controllers\admin\userController@user_edit')->name('user_edit');
-    Route::post('/kullanici/duzenle/{id}/', '\App\Http\Controllers\admin\userController@user_update')->name('user_update');
-    Route::get('/kullanici/sil/{id}/', '\App\Http\Controllers\admin\userController@user_delete')->name('user_delete');
+    Route::get('/kullanici', '\App\Http\Controllers\admin\userController@User')->name('user');
+    Route::post('/kullanici', '\App\Http\Controllers\admin\userController@UserAdd')->name('user_add');
+    Route::get('/kullanici/duzenle/{id}', '\App\Http\Controllers\admin\userController@UserEdit')->name('user_edit');
+    Route::post('/kullanici/duzenle/{id}/', '\App\Http\Controllers\admin\userController@UserUpdate')->name('user_update');
+    Route::get('/kullanici/sil/{id}/', '\App\Http\Controllers\admin\userController@UserDelete')->name('user_delete');
 
 
 });
